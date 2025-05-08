@@ -103,7 +103,7 @@ This Streamlit app enables interactive financial Q&A for **ITC Ltd.** by leverag
 
 ## 🛠 How to Run
 
-1. Place your Chroma DB zip file and background image in the working directory.
+1. Place your Chroma DB zip file in the working directory.
 2. Replace:
    ```python
    API_key = "your api key"
