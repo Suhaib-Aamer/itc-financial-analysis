@@ -35,7 +35,7 @@ def set_background(local_image_path):
 set_background(r"Images/bkg2.jpg")
 
 # API key
-API_key = "AIzaSyCoFe_UHz_9zQzmB1KQgFp2A3G7m3KCe20"
+API_key = "######################################"
 
 
 st.title("📊 ITC Financial Analysis with AI Scraping & LLM Integration")
