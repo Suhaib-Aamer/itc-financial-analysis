@@ -1,6 +1,8 @@
-# ITC Financial Analysis with AI Scraping & LLM Integration
+# [👉Hugging Face Deployed Streamlit App Link👈](https://huggingface.co/spaces/NeonSamurai/ITC-Financial-Analyzer)
 
-This project analyzes ITC Ltd's revenue trends, profitability, and financial health using scraped financial data and Large Language Models (LLMs). It combines modern scraping tools (Tavily), embeddings, and LLMs to provide conversational answers with source citations.
+# ITC Financial Analysis
+
+This project analyzes ITC Ltd's revenue trends, profitability, and financial health using scraped financial data and Large Language Models (LLMs). It combines modern scraping tools (Tavily), embeddings, and LLMs to provide answers with source citations.
 
 ### 🚀 Features
 
