@@ -1,4 +1,4 @@
-# [👉Hugging Face Deployed Streamlit App Link👈](https://huggingface.co/spaces/NeonSamurai/ITC-Financial-Analyzer)
+# [🤗Hugging Face Deployed Streamlit App Link](https://huggingface.co/spaces/NeonSamurai/ITC-Financial-Analyzer)
 
 # ITC Financial Analysis
 
