@@ -1,5 +1,4 @@
 import streamlit as st
-import zipfile
 
 from sentence_transformers import SentenceTransformer
 from langchain_community.embeddings import HuggingFaceEmbeddings
@@ -11,53 +10,38 @@ from langchain.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain.schema.output_parser import StrOutputParser
 
-import base64
-
-st.set_page_config(page_title="ITC Financial Analysis with AI Scraping & LLM Integration", layout="centered")
-
-def set_background(local_image_path):
-    with open(local_image_path, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read()).decode()
-    
-    bg_image_style = f"""
-    <style>
-        .stApp {{
-            background-image: url(data:image/{"png"};base64,{encoded_string});
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }}
-    </style>
-    """
-    st.markdown(bg_image_style, unsafe_allow_html=True)
-
-# Call this function with the path to your image
-set_background(r"Images/bkg2.jpg")
+st.set_page_config(page_title="ITC Financial Analysis ChatBot", layout="centered")
 
 # API key
-API_key = "######################################"
+API_key = "Your Gemini API KEY"
+    
+st.markdown("""
+<h1 style='text-align: center; color: white; font-size: 42px;'>
+📊 ITC Financials with AI
+</h1>
+""", unsafe_allow_html=True)
 
-
-st.title("📊 ITC Financial Analysis with AI Scraping & LLM Integration")
 
 # Memory buffer for chat history
 memory_buffer = {"chat_history": []}
 
-# Minimalistic and background-matching style for the End Chat button
-end_chat_button = """
+# Minimalistic and background-matching style for the New Chat button
+new_chat_button = """
 <style>
     .stButton>button {
-        background-color: rgba(255, 255, 255, 0.3);  /* Semi-transparent white */
+        background-color: rgba(255, 255, 255, 0.2);  /* Semi-transparent white */
         color: white;
         font-size: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.5);
+        border: None;
         border-radius: 20px;
         padding: 12px 24px;
         cursor: pointer;
         transition: background-color 0.3s ease, transform 0.2s ease;
+        width: 100%;
+        display: black;
     }
     .stButton>button:hover {
-        background-color: rgba(255, 255, 255, 0.6);  /* Lighter on hover */
+        background-color: rgba(255, 255, 255, 0.4);  /* Lighter on hover */
         transform: scale(1.05);  /* Subtle scaling effect */
     }
     .stButton>button:active {
@@ -65,20 +49,23 @@ end_chat_button = """
     }
 </style>
 """
-st.markdown(end_chat_button, unsafe_allow_html=True)
+st.markdown(new_chat_button, unsafe_allow_html=True)
 
 
 # End chat button
-if st.button("End Chat 🛑"):
+if st.button("New Chat"):
     memory_buffer["chat_history"] = []
 
+# import zipfile
+
 # Load Chroma vector DB from zip
-with zipfile.ZipFile('chroma_db_32_backup.zip', 'r') as zip_ref:
-    zip_ref.extractall('chroma_db')
+# with zipfile.ZipFile(r"C:\Users\hi\Desktop\Neuzen AI\chroma_db_backup.zip", 'r') as zip_ref:
+#     zip_ref.extractall('chroma_db')
+
 
 # Embeddings and vector store
 embedding = HuggingFaceEmbeddings(model_name='all-MiniLM-L6-v2')
-vectorstore = Chroma(persist_directory='chroma_db', embedding_function=embedding)
+vectorstore = Chroma(persist_directory='YOUR CHROMA_DB DIRECTORY', embedding_function=embedding)
 mmr_retriever = vectorstore.as_retriever(search_type="mmr", search_kwargs={"k": 3, "lambda_mult": 1})
 
 # Helper functions
@@ -174,6 +161,7 @@ if user_input:
 
         # Show sources
         if output.get("source_documents"):
-            st.markdown("**Sources:**")
-            for doc in output["source_documents"]:
-                st.markdown(f"- {doc.metadata.get('source', 'Unknown document')}")
+            st.markdown("#### Source Documents", unsafe_allow_html=True)
+            for i, doc in enumerate(output["source_documents"], 1):
+                source_name = doc.metadata.get("source", f"Document {i}")
+                st.markdown(f"*{i}. {source_name}*")
